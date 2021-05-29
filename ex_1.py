@@ -92,6 +92,11 @@ class Snake:
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.display.set_caption("Snake and Chocolate")
+
+        pygame.mixer.init()
+        self.music()
+
         self.surface = pygame.display.set_mode((500, 400))
         self.snake = Snake(self.surface, 1)
         self.snake.draw()
@@ -103,6 +108,14 @@ class Game:
             if b1 >= b2 and b1 < b2 + 20:
                 return True
         return False
+
+    def sound(self, sound):
+        sound_v = pygame.mixer.Sound(f"{sound}.mp3")
+        pygame.mixer.Sound.play(sound_v)
+
+    def music(self):
+        pygame.mixer.music.load("beach.mp3")
+        pygame.mixer.music.play()
 
     def play(self):
         self.snake.creep()
@@ -123,12 +136,15 @@ class Game:
         pygame.display.flip()
         #zbieranie punktów
         if self.collision_finder(self.snake.x[0], self.snake.y[0], self.chocolate.x, self.chocolate.y):
+            self.sound("haps")
             self.snake.bigger()
             self.chocolate.change_place()
+
 
         #koniec gry
         for i in range(1, self.snake.size):
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
+                self.sound("death")
                 raise
 
     def score(self):
@@ -140,11 +156,12 @@ class Game:
         black = 0, 0, 0
         self.surface.fill(black)
         font = pygame.font.SysFont('Helvetica', 25)
-        message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (255,255,0))
+        message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (255, 255, 0))
         self.surface.blit(message, (100, 150))
         message2 = font.render(f"Click 'p' to play again", True, (255, 255, 0))
         self.surface.blit(message2, (100, 200))
         pygame.display.flip()
+        pygame.mixer.music.pause()
 
     def restart(self):
         self.snake = Snake(self.surface, 1)
@@ -160,6 +177,7 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         quit()
                     if event.key == K_p:
+                        pygame.mixer.music.unpause()
                         stop = False
                     if not stop:
                         if event.key == K_UP or event.key == K_w:
