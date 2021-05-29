@@ -20,6 +20,21 @@ class Chocolate:
         self.x = random.randint(1, 24)*20
         self.y = random.randint(1, 19)*20
 
+class Bomb:
+    #wymiary bomby to 20x20
+    def __init__(self, board):
+        self.board = board
+        self.image = pygame.image.load('bomb.PNG').convert()
+        self.x = 180
+        self.y = 180
+
+    def draw(self):
+        self.board.blit(self.image, (self.x, self.y))
+        pygame.display.flip()
+
+    def change_place(self):
+        self.x = random.randint(1, 24)*20
+        self.y = random.randint(1, 19)*20
 
 class Snake:
     # wymiary głowy węża to 20x20
@@ -93,15 +108,15 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Snake and Chocolate")
-
         pygame.mixer.init()
         self.music()
-
         self.surface = pygame.display.set_mode((500, 400))
         self.snake = Snake(self.surface, 1)
         self.snake.draw()
         self.chocolate = Chocolate(self.surface)
         self.chocolate.draw()
+        self.bomb = Bomb(self.surface)
+        self.bomb.draw()
 
     def collision_finder(self, a1, b1, a2, b2):
         if a1 >= a2 and a1 < a2 + 20:
@@ -120,8 +135,10 @@ class Game:
     def play(self):
         self.snake.creep()
         self.chocolate.draw()
+        self.bomb.draw()
         self.score()
         pygame.display.flip()
+
         #poza planszą
         for i in range(0, self.snake.size):
             if self.snake.x[i] == -20 and self.snake.direction == "left":
@@ -139,6 +156,7 @@ class Game:
             self.sound("haps")
             self.snake.bigger()
             self.chocolate.change_place()
+            self.bomb.change_place()
 
 
         #koniec gry
@@ -146,6 +164,10 @@ class Game:
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
                 self.sound("death")
                 raise
+            if self.collision_finder(self.snake.x[0], self.snake.y[0], self.bomb.x, self.bomb.y):
+                self.sound("death")
+                raise
+
 
     def score(self):
         font = pygame.font.SysFont('Helvetica', 22)
