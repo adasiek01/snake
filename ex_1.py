@@ -49,7 +49,7 @@ class Snake:
         self.y = [20]*size
 
     def draw(self):
-        self.board.fill((245, 170, 66))
+        self.board.fill((50, 205, 50))
         for i in range(self.size):
             self.board.blit(self.image, (self.x[i], self.y[i]))
         pygame.display.flip()
@@ -153,7 +153,19 @@ class Game:
             self.sound("haps")
             self.snake.bigger()
             self.chocolate.change_place()
-
+            for i in range(self.snake.size):
+                if self.chocolate.x == self.snake.x[i] and self.chocolate.y == self.snake.y[i]:
+                    self.chocolate.change_place()
+                if self.chocolate.x == 120 and self.chocolate.y == 100:
+                    self.chocolate.change_place()
+                if self.chocolate.x == 360 and self.chocolate.y == 100:
+                    self.chocolate.change_place()
+                if self.chocolate.x == 240 and self.chocolate.y == 180:
+                    self.chocolate.change_place()
+                if self.chocolate.x == 120 and self.chocolate.y == 260:
+                    self.chocolate.change_place()
+                if self.chocolate.x == 360 and self.chocolate.y == 260:
+                    self.chocolate.change_place()
 
 
         #koniec gry
@@ -181,7 +193,7 @@ class Game:
 
     def score(self):
         font = pygame.font.SysFont('Helvetica', 22)
-        result = font.render(f"Score: {self.snake.size-1}", True, (0, 0, 205))
+        result = font.render(f"Score: {self.snake.size-1}", True, (75, 0, 130))
         self.surface.blit(result, (400, 5))
 
     def the_end(self):
