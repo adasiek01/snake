@@ -8,7 +8,7 @@ class Chocolate:
     # wymiary czekolady to 20x20
     def __init__(self, board):
         self.board = board
-        self.image = pygame.image.load('chocolate.PNG').convert()
+        self.image = pygame.image.load('images/chocolate.PNG').convert()
         self.x = 60
         self.y = 60
 
@@ -24,7 +24,7 @@ class Bomb:
     # wymiary bomby to 20x20
     def __init__(self, board):
         self.board = board
-        self.image = pygame.image.load('bomb.PNG').convert()
+        self.image = pygame.image.load('images/bomb.PNG').convert()
 
     def draw(self):
         self.board.blit(self.image, (120, 100))
@@ -38,7 +38,7 @@ class Snake:
     # wymiary głowy węża to 20x20
     def __init__(self, board, size):
         self.board = board
-        self.image = pygame.image.load('square.PNG').convert()
+        self.image = pygame.image.load('images/square.PNG').convert()
         self.direction = "right"
 
         self.size = size
@@ -121,7 +121,7 @@ class Game:
         pygame.mixer.Sound.play(sound_v)
 
     def music(self):
-        pygame.mixer.music.load("beach.mp3")
+        pygame.mixer.music.load("MUSIC/beach.mp3")
         pygame.mixer.music.play(-1)
 
     def play(self):
@@ -145,7 +145,7 @@ class Game:
         pygame.display.flip()
         # zbieranie punktów
         if self.collision_finder(self.snake.x[0], self.snake.y[0], self.chocolate.x, self.chocolate.y):
-            self.sound("haps")
+            self.sound("MUSIC/haps")
             self.snake.bigger()
             self.chocolate.change_place()
             for i in range(self.snake.size):
@@ -165,23 +165,23 @@ class Game:
         # koniec gry
         for i in range(1, self.snake.size):
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
-                self.sound("death")
+                self.sound("MUSIC/death")
                 raise
 
         if self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 100):
-            self.sound("death")
+            self.sound("MUSIC/death")
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 100):
-            self.sound("death")
+            self.sound("MUSIC/death")
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 240, 180):
-            self.sound("death")
+            self.sound("MUSIC/death")
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 260):
-            self.sound("death")
+            self.sound("MUSIC/death")
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 260):
-            self.sound("death")
+            self.sound("MUSIC/death")
             raise
 
     def score(self):
