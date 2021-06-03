@@ -49,7 +49,6 @@ class Snake:
         self.y = [20]*size
 
     def draw(self):
-        self.board.fill((50, 205, 50))
         for i in range(self.size):
             self.board.blit(self.image, (self.x[i], self.y[i]))
         pygame.display.flip()
@@ -129,7 +128,12 @@ class Game:
         pygame.mixer.music.load("MUSIC/beach.mp3")
         pygame.mixer.music.play(-1)
 
+    def background(self):
+        bgr = pygame.image.load("images/backgr.png")
+        self.surface.blit(bgr, (0, 0))
+
     def play(self):
+        self.background()
         self.snake.creep()
         self.chocolate.draw()
         self.bomb.draw()
@@ -197,8 +201,7 @@ class Game:
         self.surface.blit(result, (400, 5))
 
     def the_end(self):
-        black = 0, 0, 0
-        self.surface.fill(black)
+        self.background()
         font = pygame.font.SysFont('Helvetica', 25)
         message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (255, 255, 0))
         self.surface.blit(message, (100, 150))

@@ -5,7 +5,7 @@ import random
 
 
 class Chocolate:
-    # wymiary czekolady to 20x20
+    #wymiary czekolady to 20x20
     def __init__(self, board):
         self.board = board
         self.image = pygame.image.load('images/chocolate.PNG').convert()
@@ -17,14 +17,15 @@ class Chocolate:
         pygame.display.flip()
 
     def change_place(self):
-        self.x = random.randint(1, 24) * 20
-        self.y = random.randint(1, 19) * 20
+        self.x = random.randint(1, 24)*20
+        self.y = random.randint(1, 19)*20
 
 class Bomb:
-    # wymiary bomby to 20x20
+    #wymiary bomby to 20x20
     def __init__(self, board):
         self.board = board
         self.image = pygame.image.load('images/bomb.PNG').convert()
+
 
     def draw(self):
         self.board.blit(self.image, (120, 100))
@@ -34,6 +35,8 @@ class Bomb:
         self.board.blit(self.image, (240, 180))
         pygame.display.flip()
 
+
+
 class Snake:
     # wymiary głowy węża to 20x20
     def __init__(self, board, size):
@@ -42,11 +45,10 @@ class Snake:
         self.direction = "right"
 
         self.size = size
-        self.x = [20] * size
-        self.y = [20] * size
+        self.x = [20]*size
+        self.y = [20]*size
 
     def draw(self):
-        self.board.fill((50, 205, 50))
         for i in range(self.size):
             self.board.blit(self.image, (self.x[i], self.y[i]))
         pygame.display.flip()
@@ -65,7 +67,7 @@ class Snake:
 
     def creep(self):
 
-        for i in range(self.size - 1, 0, -1):
+        for i in range(self.size-1, 0, -1):
             self.x[i] = self.x[i - 1]
             self.y[i] = self.y[i - 1]
 
@@ -80,9 +82,9 @@ class Snake:
         self.draw()
 
     def bigger(self):
-        self.size += 1
-        self.x.append(-1)
-        self.y.append(-1)
+       self.size += 1
+       self.x.append(-1)
+       self.y.append(-1)
 
     def out_of_x_left(self):
         self.x[0] = 500
@@ -95,6 +97,8 @@ class Snake:
 
     def out_of_y_down(self):
         self.y[0] = -20
+
+
 
 class Game:
     def __init__(self):
@@ -124,14 +128,19 @@ class Game:
         pygame.mixer.music.load("MUSIC/beach.mp3")
         pygame.mixer.music.play(-1)
 
+    def background(self):
+        bgr = pygame.image.load("images/backgr.png")
+        self.surface.blit(bgr, (0, 0))
+
     def play(self):
+        self.background()
         self.snake.creep()
         self.chocolate.draw()
         self.bomb.draw()
         self.score()
         pygame.display.flip()
 
-        # poza planszą
+        #poza planszą
 
         if self.snake.x[0] == -20 and self.snake.direction == "left":
             self.snake.out_of_x_left()
@@ -143,7 +152,7 @@ class Game:
             self.snake.out_of_y_down()
 
         pygame.display.flip()
-        # zbieranie punktów
+        #zbieranie punktów
         if self.collision_finder(self.snake.x[0], self.snake.y[0], self.chocolate.x, self.chocolate.y):
             self.sound("MUSIC/haps")
             self.snake.bigger()
@@ -162,7 +171,8 @@ class Game:
                 if self.chocolate.x == 360 and self.chocolate.y == 260:
                     self.chocolate.change_place()
 
-        # koniec gry
+
+        #koniec gry
         for i in range(1, self.snake.size):
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
                 self.sound("MUSIC/death")
@@ -184,16 +194,16 @@ class Game:
             self.sound("MUSIC/death")
             raise
 
+
     def score(self):
         font = pygame.font.SysFont('Helvetica', 22)
-        result = font.render(f"Score: {self.snake.size - 1}", True, (75, 0, 130))
+        result = font.render(f"Score: {self.snake.size-1}", True, (75, 0, 130))
         self.surface.blit(result, (400, 5))
 
     def the_end(self):
-        black = 0, 0, 0
-        self.surface.fill(black)
+        self.background()
         font = pygame.font.SysFont('Helvetica', 25)
-        message = font.render(f"You've lost, your final score is: {self.snake.size - 1}", True, (255, 255, 0))
+        message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (255, 255, 0))
         self.surface.blit(message, (100, 150))
         message2 = font.render(f"Click 'ENTER' to play again", True, (255, 255, 0))
         self.surface.blit(message2, (100, 200))
