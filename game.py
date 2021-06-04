@@ -35,7 +35,7 @@ def main_menu():
 
             font = pygame.font.Font('arial.ttf', 25)
 
-            text = font.render("Top scores", False, red)
+            text = font.render(str(top_sc), False, red)
 
             textRect = text.get_rect()
 

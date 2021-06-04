@@ -209,9 +209,14 @@ class Game:
     def top_scores(self):
         f = open("top_scores.txt", "a")
         f.write(str(self.snake.size-1) + "\n")
-        lines = f.readlines()
-        print(lines)
         f.close()
+        f = open("top_scores.txt", "r")
+        lines = f.readlines()
+        f.close()
+        top = []
+        for i in lines:
+            top.append(i[:-1])
+        return top[-5:]
 
 
     def the_end(self):
