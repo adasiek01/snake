@@ -215,8 +215,9 @@ class Game:
         f.close()
         top = []
         for i in lines:
-            top.append(i[:-1])
-        return top[-5:]
+            top.append(int(i[:-1]))
+        top.sort()
+        print(top[-5:])
 
     def the_end(self):
         self.background()

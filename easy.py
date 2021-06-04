@@ -215,7 +215,7 @@ class Game:
         f.close()
         top = []
         for i in lines:
-            top.append(i[:-1])
+            top.append(int(i[:-1]))
         top.sort()
         print(top[-5:])
 
