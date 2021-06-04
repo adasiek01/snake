@@ -176,22 +176,28 @@ class Game:
         for i in range(1, self.snake.size):
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
                 self.sound("MUSIC/death")
+                self.top_scores()
                 raise
 
         if self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 100):
             self.sound("MUSIC/death")
+            self.top_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 100):
             self.sound("MUSIC/death")
+            self.top_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 240, 180):
             self.sound("MUSIC/death")
+            self.top_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 260):
             self.sound("MUSIC/death")
+            self.top_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 260):
             self.sound("MUSIC/death")
+            self.top_scores()
             raise
 
 
@@ -199,6 +205,17 @@ class Game:
         font = pygame.font.SysFont('Helvetica', 22)
         result = font.render(f"Score: {self.snake.size-1}", True, (75, 0, 130))
         self.surface.blit(result, (400, 5))
+
+    def top_scores(self):
+        top = []
+        f = open("top_scores.txt", "a")
+        f.write(str(self.snake.size-1) + "\n")
+        lines = f.readlines()
+        for line in lines:
+            top.append(line)
+            top.sort()
+            print(top[-5:])
+        f.close()
 
     def the_end(self):
         self.background()
@@ -213,6 +230,7 @@ class Game:
     def restart(self):
         self.snake = Snake(self.surface, 1)
         self.chocolate = Chocolate(self.surface)
+
 
     def go(self):
         stop = False
@@ -255,6 +273,13 @@ class Game:
             time.sleep(0.1)
 
 
+
+
+
+
 if __name__ == "__main__":
     game = Game()
     game.go()
+
+
+
