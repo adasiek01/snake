@@ -207,15 +207,12 @@ class Game:
         self.surface.blit(result, (400, 5))
 
     def top_scores(self):
-        top = []
         f = open("top_scores.txt", "a")
         f.write(str(self.snake.size-1) + "\n")
         lines = f.readlines()
-        for line in lines:
-            top.append(line)
-            top.sort()
-            print(top[-5:])
+        print(lines)
         f.close()
+
 
     def the_end(self):
         self.background()

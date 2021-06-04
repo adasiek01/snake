@@ -208,10 +208,10 @@ class Game:
 
     def top_scores(self):
         f = open("top_scores.txt", "a")
-        f.write(str(self.snake.size-1) + "\n")
+        f.write(str(self.snake.size - 1) + " ")
         f.close()
         f = open("top_scores.txt", "r")
-        print(f.readlines())
+        f.readlines()
 
 
     def the_end(self):
@@ -273,4 +273,6 @@ class Game:
 def h_function():
     game = Game()
     game.go()
+
+
 
