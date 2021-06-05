@@ -101,7 +101,7 @@ class Snake:
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, mode):
         pygame.init()
         pygame.display.set_caption("Snake and Chocolate")
         pygame.mixer.init()
@@ -113,6 +113,7 @@ class Game:
         self.chocolate.draw()
         self.bomb = Bomb(self.surface)
         self.bomb.draw()
+        self.mode = mode
 
     def collision_finder(self, a1, b1, a2, b2):
         if a1 >= a2 and a1 < a2 + 20:
@@ -176,28 +177,28 @@ class Game:
         for i in range(1, self.snake.size):
             if self.collision_finder(self.snake.x[0], self.snake.y[0], self.snake.x[i], self.snake.y[i]):
                 self.sound("MUSIC/death")
-                self.top_scores()
+                self.save_scores()
                 raise
 
         if self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 100):
             self.sound("MUSIC/death")
-            self.top_scores()
+            self.save_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 100):
             self.sound("MUSIC/death")
-            self.top_scores()
+            self.save_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 240, 180):
             self.sound("MUSIC/death")
-            self.top_scores()
+            self.save_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 120, 260):
             self.sound("MUSIC/death")
-            self.top_scores()
+            self.save_scores()
             raise
         elif self.collision_finder(self.snake.x[0], self.snake.y[0], 360, 260):
             self.sound("MUSIC/death")
-            self.top_scores()
+            self.save_scores()
             raise
 
 
@@ -206,18 +207,19 @@ class Game:
         result = font.render(f"Score: {self.snake.size-1}", True, (75, 0, 130))
         self.surface.blit(result, (400, 5))
 
-    def top_scores(self):
+    def save_scores(self):
+        mode = None
+        if self.mode == 0.12:
+            mode = "E"
+        elif self.mode == 0.1:
+            mode = "M"
+        elif self.mode == 0.08:
+            mode = "H"
+        print(mode)
         f = open("top_scores.txt", "a")
-        f.write(str(self.snake.size - 1) + "\n")
+        f.write(str(self.snake.size - 1) + " " + mode + "\n")
         f.close()
-        f = open("top_scores.txt", "r")
-        lines = f.readlines()
-        f.close()
-        top = []
-        for i in lines:
-            top.append(int(i[:-1]))
-        top.sort()
-        print(top[-5:])
+
 
 
     def the_end(self):
@@ -273,16 +275,18 @@ class Game:
                 self.the_end()
                 stop = True
                 self.restart()
-            time.sleep(0.1)
+            time.sleep(self.mode)
 
 
-
-
-
-
-if __name__ == "__main__":
-    game = Game()
+def main(t):
+    game = Game(t)
     game.go()
+
+
+
+
+
+
 
 
 

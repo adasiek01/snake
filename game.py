@@ -1,12 +1,25 @@
 from pygame_widgets import Button
-from easy import *
-from medium import *
-from hard import *
+from ex_1 import *
 
 
 
 
 def main_menu():
+
+    def leaderboard():
+        f = open("top_scores.txt", "r")
+        lines = f.readlines()
+        f.close()
+        top = []
+        for line in lines:
+            a, b = line.split()
+            pair = (int(a), b)
+            top.append(pair)
+        top_5 = sorted(top, key=lambda x: x[0], reverse=True)
+        return top_5[:5]
+
+
+
     def top_s():
         gui_5 = pygame.display.set_mode((500, 400))
 
@@ -35,14 +48,23 @@ def main_menu():
 
             font = pygame.font.Font('arial.ttf', 25)
 
-            text = font.render(str(top_sc), False, red)
+            element = 0
 
-            textRect = text.get_rect()
+            roman = ["I", "II", "III", "IV", "V"]
 
-            textRect.center = (X // 2, Y // 14)
+            for s, i in zip(leaderboard(), roman):
+
+                text = font.render(f"{i}: " + str(s[0]) + " " + str(s[1]), False, red)
+
+                textRect = text.get_rect()
+
+                textRect.center = (X // 2, Y // 14 + element)
+
+                element += 60
 
 
-            gui_5.blit(text, textRect)
+
+                gui_5.blit(text, textRect)
 
 
             back_2_button.draw()
@@ -204,21 +226,21 @@ def main_menu():
             fontSize=50,
             inactiveColour=(255, 223, 128),
             pressedColour=(51, 204, 51),
-            onClick=e_function)
+            onClick=lambda: main(0.12))
 
         medium_button = Button(
             gui_2, 175, 160, 150, 50, text='Medium', textColour=(153, 0, 51), radius=40,
             fontSize=50,
             inactiveColour=(255, 223, 128),
             pressedColour=(51, 204, 51),
-            onClick=m_function)
+            onClick=lambda: main(0.1))
 
         hard_button = Button(
             gui_2, 200, 250, 100, 50, text='Hard', textColour=(153, 0, 51), radius=40,
             fontSize=50,
             inactiveColour=(255, 223, 128),
             pressedColour=(51, 204, 51),
-            onClick=h_function)
+            onClick=lambda: main(0.08))
 
         back_button = Button(
             gui_2, 30, 320, 100, 50, text='Back', textColour=(153, 0, 51), radius=40,
