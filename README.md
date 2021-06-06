@@ -6,8 +6,8 @@
 This is the Snake Game. Use yourarcade skills and eat as much chocolate as tou can! Be carefull all the time!
 
 ### Technologies
-Python - programming language/
-pygame - module that enables games creation/
+Python - programming language\
+pygame - module that enables games creation\
 pygame-menu - module that enables menus to games creation
 
 ### How to run this app?
