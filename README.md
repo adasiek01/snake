@@ -3,7 +3,7 @@
 ## Author: Adam Kawałko
 
 ### Short description
-This is the Snake Game. Use yourarcade skills and eat as much chocolate as tou can! Be carefull all the time!
+This is the Snake Game. Use your arcade skills and eat as much chocolate as tou can! Be carefull all the time!
 
 ### Technologies
 Python - programming language\
