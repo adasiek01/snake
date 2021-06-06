@@ -1,4 +1,5 @@
-# Game Title
+# Snake and chocolate
+
 ## Author: Adam Kawałko
 
 ### Short description
