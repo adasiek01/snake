@@ -389,6 +389,7 @@ def main_menu():
     """
     the function that creates the main menu
     """
+    pygame.init()
 
     def leaderboard():
         """
@@ -488,7 +489,7 @@ def main_menu():
             x = 500
             y = 400
 
-            pygame.display.set_caption('Instruction')
+            pygame.display.set_caption('Instructions')
 
             font = pygame.font.Font('arial.ttf', 25)
 
@@ -656,11 +657,12 @@ def main_menu():
             back_button.draw()
             quit_button.listen(events)
             quit_button.draw()
+            pygame.display.set_caption('Play')
             pygame.display.update()
-
-    pygame.init()
+    """
+    Main menu
+    """
     gui = pygame.display.set_mode((500, 400))
-    pygame.display.set_caption('Snake')
 
     play_button = Button(
         gui, 185, 80, 140, 80, text='Play', textColour=(153, 0, 51), radius=40,
@@ -700,24 +702,43 @@ def main_menu():
     run = True
     while run:
         events = pygame.event.get()
+
+        gui.fill((102, 204, 255))
+        play_button.listen(events)
+        quit_button.listen(events)
+        instructions_button.listen(events)
+        author_button.listen(events)
+        top_scores_button.listen(events)
+
+        brown = (128, 32, 0)
+        x = 500
+        y = 400
+
+        pygame.display.set_caption('Snake & chocolate')
+
+        font = pygame.font.Font('arial.ttf', 40)
+
+        text = font.render("SNAKE & CHOCOLATE", False, brown)
+
+        textRect = text.get_rect()
+
+        textRect.center = (x // 2, y // 12)
+
+        gui.blit(text, textRect)
+
+        play_button.draw()
+        quit_button.draw()
+        instructions_button.draw()
+        author_button.draw()
+        top_scores_button.draw()
+
+        pygame.display.update()
+
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 run = False
                 quit()
-
-        gui.fill((102, 204, 255))
-        play_button.listen(events)
-        play_button.draw()
-        quit_button.listen(events)
-        quit_button.draw()
-        instructions_button.listen(events)
-        instructions_button.draw()
-        author_button.listen(events)
-        author_button.draw()
-        top_scores_button.listen(events)
-        top_scores_button.draw()
-        pygame.display.update()
 
 
 main_menu()
