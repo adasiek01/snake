@@ -317,7 +317,7 @@ class Game:
         the method that displays a message after the game
         """
         self.background()
-        font = pygame.font.SysFont('Helvetica', 40)
+        font = pygame.font.SysFont('Helvetica', 35)
         message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (0, 0, 0))
         self.surface.blit(message, (20, 100))
         message2 = font.render(f"Click 'ENTER' to play again", True, (255, 255, 0))
