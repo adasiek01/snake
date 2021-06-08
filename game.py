@@ -617,7 +617,7 @@ def main_menu():
         gui_2 = pygame.display.set_mode((500, 400))
 
         easy_button = Button(
-            gui_2, 200, 70, 100, 50, text='Easy', textColour=(153, 0, 51), radius=40,
+            gui_2, 200, 30, 100, 50, text='Easy', textColour=(153, 0, 51), radius=40,
             fontSize=50,
             inactiveColour=(255, 223, 128),
             pressedColour=(51, 204, 51),
@@ -631,7 +631,7 @@ def main_menu():
             onClick=lambda: main(0.1))
 
         hard_button = Button(
-            gui_2, 200, 250, 100, 50, text='Hard', textColour=(153, 0, 51), radius=40,
+            gui_2, 200, 295, 100, 50, text='Hard', textColour=(153, 0, 51), radius=40,
             fontSize=50,
             inactiveColour=(255, 223, 128),
             pressedColour=(51, 204, 51),
