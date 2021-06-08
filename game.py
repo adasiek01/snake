@@ -317,11 +317,13 @@ class Game:
         the method that displays a message after the game
         """
         self.background()
-        font = pygame.font.SysFont('Helvetica', 25)
-        message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (255, 255, 0))
-        self.surface.blit(message, (100, 150))
+        font = pygame.font.SysFont('Helvetica', 40)
+        message = font.render(f"You've lost, your final score is: {self.snake.size-1}", True, (0, 0, 0))
+        self.surface.blit(message, (20, 100))
         message2 = font.render(f"Click 'ENTER' to play again", True, (255, 255, 0))
-        self.surface.blit(message2, (100, 200))
+        self.surface.blit(message2, (50, 180))
+        message3 = font.render(f"Click 'SPACE' to go to menu", True, (255, 255, 0))
+        self.surface.blit(message3, (50, 250))
         pygame.display.flip()
         pygame.mixer.music.pause()
 
@@ -347,6 +349,8 @@ class Game:
                     if event.key == K_RETURN:
                         pygame.mixer.music.unpause()
                         stop = not stop
+                    elif event.key == K_SPACE:
+                        main_menu()
                     if not stop:
                         if event.key == K_UP or event.key == K_w:
                             if 500 > self.snake.x[0] > -20 and 400 > self.snake.y[0] > -20:
@@ -401,9 +405,12 @@ def main_menu():
         f.close()
         top = []
         for line in lines:
-            a, b = line.split()
-            pair = (int(a), b)
-            top.append(pair)
+            try:
+                a, b = line.split()
+                pair = (int(a), b)
+                top.append(pair)
+            except Exception:
+                pass
         top_5 = sorted(top, key=lambda x: x[0], reverse=True)
         return top_5[:5]
 
