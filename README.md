@@ -8,7 +8,8 @@ This is the Snake Game. Use your arcade skills and eat as much chocolate as tou 
 ### Technologies
 Python - programming language\
 pygame - module that enables games creation\
-pygame-menu - module that enables menus to games creation
+pygame-menu - library that enables menus creation\
+pygame-widgets - module that enables widgets creation
 
 ### How to run this app?
 1. Clone the template project, replacing my-project with the name of the project you are creating: 
